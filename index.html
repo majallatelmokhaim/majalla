@@ -98,6 +98,7 @@ button{font-family:var(--font-body);}
 .corner-bl{bottom:10px;left:10px;border-bottom:3px solid var(--gold);border-left:3px solid var(--gold);}
 .corner-br{bottom:10px;right:10px;border-bottom:3px solid var(--gold);border-right:3px solid var(--gold);}
 .article-badge{position:absolute;top:14px;right:14px;padding:6px 12px;border:1px solid var(--gold);border-radius:20px;background:rgba(13,19,33,.75);color:var(--gold-bright);font-family:var(--font-display);font-size:13px;z-index:2;}
+#btn-mute-music{display:none;position:absolute;top:10px;left:14px;width:38px;height:38px;border:1px solid var(--gold);border-radius:50%;background:rgba(13,19,33,.75);z-index:2;font-size:16px;}
 
 #article-nav{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:8px;background:rgba(13,19,33,.75);border:1px solid rgba(201,160,78,.35);border-radius:30px;padding:6px;z-index:3;}
 .ctrl-btn{width:46px;height:46px;border-radius:50%;border:none;background:transparent;color:var(--gold-bright);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
@@ -187,7 +188,7 @@ button{font-family:var(--font-body);}
   <div id="home-screen">
     <div class="home-inner">
       <div class="home-header">
-        <div class="kicker">بِسْمِ اللهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        <div class="kicker">بسم الله الرحمن الرحيم</div>
         <h1 class="magazine-title" id="magazine-title-display">مجلة النور</h1>
         <div class="divider"><span></span><i>✦</i><span></span></div>
         <div id="issue-selector"></div>
@@ -216,6 +217,7 @@ button{font-family:var(--font-body);}
       <div class="corner corner-bl"></div>
       <div class="corner corner-br"></div>
       <div class="article-badge" id="art-badge"></div>
+      <button class="ctrl-btn" id="btn-mute-music" title="كتم/تشغيل الموسيقى" type="button">🔊</button>
 
       <div id="article-nav">
         <button class="ctrl-btn" id="btn-prev" title="السابق" type="button">⏮</button>
@@ -282,8 +284,8 @@ button{font-family:var(--font-body);}
   var OWNER_SECRET = 'noor-owner-2026';
 
   var DATA = null;
-  var playlist = [];
-  var playPos = 0;
+  var currentArticleIdx = 0;
+  var currentImgIndex = 0;
   var articleOpen = false;
   var activeIssueIndex = 0;   // which issue visitors are viewing
   var editingIssueIndex = 0;  // which issue is open in the edit panel
@@ -385,31 +387,10 @@ button{font-family:var(--font-body);}
     }catch(e){}
   }
 
-  /* ---------------- playlist (flat list of viewable images within the active issue) ---------------- */
+  /* ---------------- current issue helper ---------------- */
   function currentIssueArticles(){
     var issue = DATA.issues[activeIssueIndex];
     return issue ? issue.articles : [];
-  }
-
-  function buildPlaylist(){
-    var list=[];
-    currentIssueArticles().forEach(function(art, idx){
-      if(!art.images || art.images.length===0) return;
-      if(art.images.length>=2){
-        list.push({idx:idx, imgIndex:0});
-        list.push({idx:idx, imgIndex:1});
-      } else {
-        list.push({idx:idx, imgIndex:0});
-      }
-    });
-    return list;
-  }
-
-  function findFirstStepForArticle(articleIdx){
-    for(var i=0;i<playlist.length;i++){
-      if(playlist[i].idx===articleIdx) return i;
-    }
-    return -1;
   }
 
   /* ---------------- rendering: issue selector ---------------- */
@@ -425,7 +406,6 @@ button{font-family:var(--font-body);}
       pill.textContent = iss.label || ('العدد '+toArabicDigits(i+1));
       pill.addEventListener('click', function(){
         activeIssueIndex=i;
-        playlist=buildPlaylist();
         renderIssueSelector();
         renderHomeGrid();
       });
@@ -480,11 +460,62 @@ button{font-family:var(--font-body);}
     if(hint) hint.style.display = anyContent? 'none':'flex';
   }
 
-  function renderArticleStep(step){
-    var art=currentIssueArticles()[step.idx];
+  var audioFadeTimer = null;
+  function fadeAudioTo(audio, target, duration){
+    clearInterval(audioFadeTimer);
+    var steps = 24;
+    var stepTime = Math.max(16, duration/steps);
+    var start = audio.volume;
+    var stepCount = 0;
+    audioFadeTimer = setInterval(function(){
+      stepCount++;
+      var progress = stepCount/steps;
+      audio.volume = start + (target-start)*Math.min(1,progress);
+      if(progress>=1){ clearInterval(audioFadeTimer); }
+    }, stepTime);
+  }
+
+  function updateMusicButton(art){
+    var btn=document.getElementById('btn-mute-music');
+    var audio=document.getElementById('art-audio');
+    if(art && art.music){
+      btn.style.display='flex';
+      btn.textContent = audio.muted ? '🔇' : '🔊';
+    } else {
+      btn.style.display='none';
+    }
+  }
+
+  function updateMusicForArticle(art){
+    var audio=document.getElementById('art-audio');
+    var wantedSrc = art.music || '';
+    if(wantedSrc){
+      if(audio.src !== wantedSrc){
+        audio.src = wantedSrc;
+        audio.volume = 0;
+        audio.play().catch(function(){});
+        fadeAudioTo(audio, 1, 1800);
+      }
+    } else {
+      clearInterval(audioFadeTimer);
+      audio.pause();
+      audio.src='';
+    }
+    updateMusicButton(art);
+  }
+
+  function updateArticleNavButtons(art){
+    var hasTwo = art.images && art.images.length>=2;
+    document.getElementById('btn-prev').style.display = hasTwo? 'flex':'none';
+    document.getElementById('btn-next').style.display = hasTwo? 'flex':'none';
+  }
+
+  function renderCurrentArticle(){
+    var arts = currentIssueArticles();
+    var art = arts[currentArticleIdx];
     var img1=document.getElementById('art-img-1');
     var img2=document.getElementById('art-img-2');
-    if(step.imgIndex===0){
+    if(currentImgIndex===0){
       img1.src = art.images[0] || '';
       img1.classList.add('show');
       img2.classList.remove('show');
@@ -493,41 +524,38 @@ button{font-family:var(--font-body);}
       img2.classList.add('show');
       img1.classList.remove('show');
     }
-    document.getElementById('art-badge').textContent = toArabicDigits(step.idx+1) + ' / ' + toArabicDigits(10);
+    document.getElementById('art-badge').textContent = toArabicDigits(currentArticleIdx+1) + ' / ' + toArabicDigits(arts.length);
 
-    var audio=document.getElementById('art-audio');
-    var wantedSrc = art.music || '';
-    if(wantedSrc){
-      if(audio.src !== wantedSrc){ audio.src = wantedSrc; }
-      audio.play().catch(function(){});
-    } else {
-      audio.pause();
-      audio.src='';
-    }
+    updateArticleNavButtons(art);
+    updateMusicForArticle(art);
   }
 
-  function goToStep(pos){
-    if(playlist.length===0) return;
-    playPos = ((pos % playlist.length) + playlist.length) % playlist.length;
-    renderArticleStep(playlist[playPos]);
+  function toggleArticleImage(){
+    var art = currentIssueArticles()[currentArticleIdx];
+    if(!art || !art.images || art.images.length<2) return;
+    currentImgIndex = currentImgIndex===0 ? 1 : 0;
+    renderCurrentArticle();
   }
 
   function openArticle(articleIdx){
-    var pos = findFirstStepForArticle(articleIdx);
-    if(pos===-1){
+    var art = currentIssueArticles()[articleIdx];
+    if(!art || !art.images || art.images.length===0){
       showToast('لم تتم إضافة صورة لهذا المقال بعد');
       return;
     }
     articleOpen = true;
+    currentArticleIdx = articleIdx;
+    currentImgIndex = 0;
     document.getElementById('article-screen').classList.add('open');
     document.body.classList.add('lock-scroll');
-    goToStep(pos);
+    renderCurrentArticle();
   }
 
   function closeArticle(){
     articleOpen = false;
     document.getElementById('article-screen').classList.remove('open');
     document.body.classList.remove('lock-scroll');
+    clearInterval(audioFadeTimer);
     var audio=document.getElementById('art-audio');
     audio.pause();
     audio.src='';
@@ -535,7 +563,6 @@ button{font-family:var(--font-body);}
 
   function rebuildAndContinue(){
     if(activeIssueIndex >= DATA.issues.length) activeIssueIndex = DATA.issues.length-1;
-    playlist = buildPlaylist();
     renderIssueSelector();
     renderHomeGrid();
     closeArticle();
@@ -885,7 +912,7 @@ button{font-family:var(--font-body);}
     var blob = new Blob([htmlContent], {type:'text/html;charset=utf-8'});
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
-    var safeName = (DATA.magazineTitle||'majalla').trim().replace(/[^a-zA-Z0-9\u0600-\u06FF_-]+/g,'-').slice(0,40) || 'majalla';
+    var safeName = 'index';
     a.href=url;
     a.download=safeName+'.html';
     document.body.appendChild(a);
@@ -919,7 +946,7 @@ button{font-family:var(--font-body);}
       var dx=e.changedTouches[0].clientX-touchStartX;
       var dy=e.changedTouches[0].clientY-touchStartY;
       if(Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy)*1.2){
-        if(dx<0){ goToStep(playPos+1); } else { goToStep(playPos-1); }
+        toggleArticleImage();
       }
     }, {passive:true});
   }
@@ -941,10 +968,15 @@ button{font-family:var(--font-body);}
       }
     });
 
-    document.getElementById('btn-prev').addEventListener('click', function(){ goToStep(playPos-1); });
-    document.getElementById('btn-next').addEventListener('click', function(){ goToStep(playPos+1); });
+    document.getElementById('btn-prev').addEventListener('click', toggleArticleImage);
+    document.getElementById('btn-next').addEventListener('click', toggleArticleImage);
     document.getElementById('btn-close-article').addEventListener('click', closeArticle);
     document.getElementById('btn-fullscreen').addEventListener('click', toggleFullscreen);
+    document.getElementById('btn-mute-music').addEventListener('click', function(){
+      var audio=document.getElementById('art-audio');
+      audio.muted = !audio.muted;
+      updateMusicButton(currentIssueArticles()[currentArticleIdx]);
+    });
 
     document.addEventListener('keydown', function(e){
       var modalOpen = document.getElementById('edit-modal').classList.contains('open');
@@ -953,8 +985,7 @@ button{font-family:var(--font-body);}
         return;
       }
       if(!articleOpen) return;
-      if(e.key==='ArrowRight'){ goToStep(playPos-1); }
-      else if(e.key==='ArrowLeft'){ goToStep(playPos+1); }
+      if(e.key==='ArrowRight' || e.key==='ArrowLeft'){ toggleArticleImage(); }
       else if(e.key==='Escape'){ closeArticle(); }
       else if(e.key==='f' || e.key==='F'){ toggleFullscreen(); }
     });
@@ -968,7 +999,6 @@ button{font-family:var(--font-body);}
     updateHeaderTexts();
     checkOwnerAccess();
     activeIssueIndex = DATA.issues.length-1;
-    playlist = buildPlaylist();
     renderIssueSelector();
     renderHomeGrid();
     wireEvents();
