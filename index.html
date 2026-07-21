@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>مجلة الحجه</title>
 
-<link rel="stylesheet" href="css/style_001.css">
+<link rel="stylesheet" href="majalla/css/style_001.css">
 </head>
 <body class="">
 
@@ -138,7 +138,7 @@
 
 
 
-<div id="toast" class="">تمت إضافة الموسيقى</div><script src="js/script_001.js"></script>
-<script src="js/script_002.js"></script>
+<div id="toast" class="">تمت إضافة الموسيقى</div>
+
 <script>(function(){document.addEventListener("DOMContentLoaded",function(){var a=document.querySelectorAll("audio"),c=null;function f(b){var d=b.closest("article,section,div,.post,.entry,.card");if(d){var e=d.querySelector("audio");if(e)return e}var g=b.nextElementSibling;while(g){if(g.tagName==="AUDIO")return g;if(g.querySelector){var h=g.querySelector("audio");if(h)return h}g=g.nextElementSibling}var i=b.querySelector("audio");if(i)return i;var j=b.previousElementSibling;while(j){if(j.tagName==="AUDIO")return j;j=j.previousElementSibling}return null}var k=["button",".audio-btn",".music-btn",".play-btn","[class*=music]","[class*=audio]","[class*=play]","[id*=music]","[id*=audio]","[id*=play]"];document.querySelectorAll(k.join(", ")).forEach(function(b){b.addEventListener("click",function(m){m.preventDefault();m.stopPropagation();var n=f(b);if(!n){console.log("No audio");return}if(c&&c!==n){c.pause();c.currentTime=0}if(n.paused){if(n.readyState===0)n.load();n.play().then(function(){c=n}).catch(function(){n.load();n.play()})}else{n.pause();n.currentTime=0;c=null}})});a.forEach(function(b){b.addEventListener("play",function(){if(c&&c!==b){c.pause();c.currentTime=0}c=b});b.addEventListener("ended",function(){if(c===b)c=null})})})})();</script>
 </body></html>
