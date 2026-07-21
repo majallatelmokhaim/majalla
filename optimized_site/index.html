@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مجلة الحجه</title>
+
+<link rel="stylesheet" href="css/style_001.css">
+</head>
+<body class="">
+
+<div id="stage">
+  <svg class="bg-pattern" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <pattern id="girih" width="90" height="90" patternUnits="userSpaceOnUse">
+        <g fill="none" stroke="var(--gold)" stroke-width="1">
+          <path d="M45 2 L83 45 L45 88 L7 45 Z"></path>
+          <path d="M45 2 L45 88 M7 45 L83 45"></path>
+          <circle cx="45" cy="45" r="4" fill="var(--gold)" stroke="none"></circle>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#girih)"></rect>
+  </svg>
+
+  <div id="home-screen">
+    <div class="home-inner">
+      <div class="home-header">
+        <div class="header-top-row">
+          <div class="header-logo-slot has-logo" id="logo-slot-1"><img id="logo-1-img" alt=""></div>
+          <div class="header-center">
+            <div class="kicker">بسم الله الرحمن الرحيم</div>
+            <h1 class="magazine-title" id="magazine-title-display">مجلة الحجه</h1>
+          </div>
+          <div class="header-logo-slot has-logo" id="logo-slot-2"><img id="logo-2-img" alt=""></div>
+        </div>
+        <div class="divider"><span></span><i>✦</i><span></span></div>
+        <div id="authors-credit" style="display: flex;">
+          <span class="authors-label">من إعداد</span>
+          <span class="authors-names" id="authors-names-display">رضا .د - علي .ع - محمد .ش</span>
+        </div>
+        <div id="issue-selector" style="display: none;"></div>
+      </div>
+      <div class="home-grid-wrap">
+        <div class="home-grid" id="home-grid"><div class="home-card" role="button" tabindex="0"><span class="badge">١</span><img alt=""><div class="cap">موضوع اليوم</div></div><div class="home-card" role="button" tabindex="0"><span class="badge">٢</span><img alt=""><div class="cap">قائدنا</div></div><div class="home-card" role="button" tabindex="0"><span class="badge">٣</span><img alt=""><div class="cap">قصص الحجج (ع)</div></div><div class="home-card" role="button" tabindex="0"><span class="badge">٤</span><img alt=""><div class="cap">شهيد اليوم</div></div><div class="home-card" role="button" tabindex="0"><span class="badge">٥</span><img alt=""><div class="cap">صدى كربلاء</div></div><div class="home-card" role="button" tabindex="0"><span class="badge">٦</span><img alt=""><div class="cap">ثقافة</div></div><div class="home-card" role="button" tabindex="0"><span class="badge">٧</span><img alt=""><div class="cap">رياضة</div></div><div class="home-card" role="button" tabindex="0"><span class="badge">٨</span><img alt=""><div class="cap">إيران ... طوفان الغضب</div></div><div class="home-card" role="button" tabindex="0"><span class="badge">٩</span><img alt=""><div class="cap">مقولات خالدة</div></div><div class="home-card" role="button" tabindex="0"><span class="badge">١٠</span><img alt=""><div class="cap">الألغاز</div></div><div class="home-card" role="button" tabindex="0"><span class="badge">١١</span><div class="placeholder-thumb">🕌</div><div class="cap">بانتظار العنوان…</div></div><div class="home-card" role="button" tabindex="0"><span class="badge">١٢</span><div class="placeholder-thumb">🕌</div><div class="cap">بانتظار العنوان…</div></div></div>
+        <div class="empty-hint" id="empty-hint" style="display: none;">
+          <div class="empty-hint-icon">🕌</div>
+          <p>لا توجد مقالات بعد</p>
+          <p class="empty-hint-sub">اضغط زر التعديل ⚙ أسفل يسار الشاشة لإضافة الصور والعناوين</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="article-screen">
+    <div class="article-frame">
+      <div class="article-image-wrap" id="article-image-wrap" style="transform: scale(1) translate(0px);">
+        <img id="art-img-1" class="article-image show" alt="">
+        <img id="art-img-2" class="article-image" alt="">
+      </div>
+      <audio id="art-audio" loop=""></audio>
+
+      <div class="corner corner-tl"></div>
+      <div class="corner corner-tr"></div>
+      <div class="corner corner-bl"></div>
+      <div class="corner corner-br"></div>
+      <div class="article-badge" id="art-badge"></div>
+
+      <div id="rotate-hint">
+        <div class="rotate-icon">📱</div>
+        <p>أدر هاتفك للوضع الأفقي لمشاهدة أفضل</p>
+        <button id="rotate-hint-close" type="button">✕</button>
+      </div>
+
+      <button id="btn-music-toggle" type="button"><span class="music-icon">🎵</span> تشغيل الموسيقى</button>
+
+      <div id="article-nav">
+        <button class="ctrl-btn" id="btn-prev" title="السابق" type="button">⏮</button>
+        <button class="ctrl-btn" id="btn-fullscreen-article" title="ملء الشاشة" type="button">⛶</button>
+        <button class="ctrl-btn ctrl-btn-close" id="btn-close-article" title="رجوع للرئيسية" type="button">✕</button>
+        <button class="ctrl-btn" id="btn-next" title="التالي" type="button">⏭</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<button id="btn-fullscreen" title="ملء الشاشة" type="button">⛶</button>
+<button id="edit-toggle" title="تعديل المجلة" type="button" class="">⚙</button>
+
+<div id="edit-modal" class="">
+  <div class="edit-panel">
+    <div class="edit-header">
+      <h2>لوحة تحرير المجلة</h2>
+      <button id="close-edit" class="btn btn-ghost" type="button">✕ إغلاق ومتابعة العرض</button>
+    </div>
+
+    <section class="edit-section">
+      <h3>الإعدادات العامة</h3>
+      <div class="global-row">
+        <label class="field">
+          <span>اسم المجلة</span>
+          <input type="text" id="mag-title-input" maxlength="60" wfd-id="id0">
+        </label>
+        <label class="field">
+          <span>من إعداد (أسماء المؤلفين، تظهر في منتصف الصفحة الرئيسية)</span>
+          <input type="text" id="authors-input" maxlength="120" placeholder="مثال: أحمد محمد وسارة علي" wfd-id="id1">
+        </label>
+      </div>
+      <div class="global-row" id="logo-edit-slots" style="margin-top:14px;"><div class="image-slot"><span class="image-slot-label">شعار ١ (يظهر أعلى الصفحة الرئيسية)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الشعار<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">شعار ٢ (يظهر أعلى الصفحة الرئيسية)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الشعار<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div></div>
+    </section>
+
+    <section class="edit-section">
+      <h3>الأعداد</h3>
+      <p class="hint-text">كل عدد له مقالاته الاثني عشر الخاصة. أضف عدداً جديداً كل يوم، والزوّار سيرون دائماً آخر عدد أولاً مع إمكانية تصفح الأعداد الأقدم من الأعلى.</p>
+      <div id="edit-issue-tabs" class="issue-edit-tabs"><div class="issue-edit-tab active"><button type="button" class="issue-pill">العدد الأول</button></div><button type="button" class="btn btn-secondary" id="add-issue-btn">➕ إضافة عدد جديد</button></div>
+      <label class="field" style="margin-top:12px;">
+        <span>اسم هذا العدد</span>
+        <input type="text" id="issue-label-input" maxlength="40" placeholder="مثال: العدد الثالث" wfd-id="id4">
+      </label>
+    </section>
+
+    <section class="edit-section">
+      <h3>مقالات هذا العدد</h3>
+      <p class="hint-text">كل مقال هو صورة واحدة أو صورتان كحد أقصى، وتحتوي الصورة نفسها على تصميم المقال كاملاً (العنوان الفرعي، النص، الصور...). اضغط على أي بطاقة في الصفحة الرئيسية لفتح مقالها.</p>
+      <div id="article-edit-list" class="article-edit-list"><div class="article-edit-item"><div class="row-num">١</div><div class="row-text-col"><label class="field"><span>العنوان</span><input type="text" maxlength="80" placeholder="عنوان المقال"></label></div><div class="image-slot"><span class="image-slot-label">صورة الغلاف (تظهر في الصفحة الرئيسية فقط)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير صورة الغلاف<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الأولى (تظهر عند فتح المقال)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div><label class="field" style="margin-top: 6px;"><span>مدة عرض هذه الصورة (ثانية)</span><input type="number" min="5" max="600"></label></div><div class="image-slot"><span class="image-slot-label">الصورة الثانية (اختياري)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div><label class="field" style="margin-top: 6px;"><span>مدة عرض هذه الصورة (ثانية)</span><input type="number" min="5" max="600"></label></div><div class="image-slot"><span class="image-slot-label">موسيقى المقال (اختياري)</span><div class="image-preview">🎵</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الموسيقى<input type="file" accept="audio/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div></div><div class="article-edit-item"><div class="row-num">٢</div><div class="row-text-col"><label class="field"><span>العنوان</span><input type="text" maxlength="80" placeholder="عنوان المقال"></label></div><div class="image-slot"><span class="image-slot-label">صورة الغلاف (تظهر في الصفحة الرئيسية فقط)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير صورة الغلاف<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الأولى (تظهر عند فتح المقال)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div><label class="field" style="margin-top: 6px;"><span>مدة عرض هذه الصورة (ثانية)</span><input type="number" min="5" max="600"></label></div><div class="image-slot"><span class="image-slot-label">الصورة الثانية (اختياري)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div><label class="field" style="margin-top: 6px;"><span>مدة عرض هذه الصورة (ثانية)</span><input type="number" min="5" max="600"></label></div><div class="image-slot"><span class="image-slot-label">موسيقى المقال (اختياري)</span><div class="image-preview">🎵</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الموسيقى<input type="file" accept="audio/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div></div><div class="article-edit-item"><div class="row-num">٣</div><div class="row-text-col"><label class="field"><span>العنوان</span><input type="text" maxlength="80" placeholder="عنوان المقال"></label></div><div class="image-slot"><span class="image-slot-label">صورة الغلاف (تظهر في الصفحة الرئيسية فقط)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير صورة الغلاف<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الأولى (تظهر عند فتح المقال)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الثانية (اختياري)</span><div class="image-preview empty">—</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">إضافة صورة<input type="file" accept="image/*"></label></div></div><div class="image-slot"><span class="image-slot-label">موسيقى المقال (اختياري)</span><div class="image-preview">🎵</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الموسيقى<input type="file" accept="audio/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div></div><div class="article-edit-item"><div class="row-num">٤</div><div class="row-text-col"><label class="field"><span>العنوان</span><input type="text" maxlength="80" placeholder="عنوان المقال"></label></div><div class="image-slot"><span class="image-slot-label">صورة الغلاف (تظهر في الصفحة الرئيسية فقط)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير صورة الغلاف<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الأولى (تظهر عند فتح المقال)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الثانية (اختياري)</span><div class="image-preview empty">—</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">إضافة صورة<input type="file" accept="image/*"></label></div></div><div class="image-slot"><span class="image-slot-label">موسيقى المقال (اختياري)</span><div class="image-preview">🎵</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الموسيقى<input type="file" accept="audio/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div></div><div class="article-edit-item"><div class="row-num">٥</div><div class="row-text-col"><label class="field"><span>العنوان</span><input type="text" maxlength="80" placeholder="عنوان المقال"></label></div><div class="image-slot"><span class="image-slot-label">صورة الغلاف (تظهر في الصفحة الرئيسية فقط)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير صورة الغلاف<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الأولى (تظهر عند فتح المقال)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الثانية (اختياري)</span><div class="image-preview empty">—</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">إضافة صورة<input type="file" accept="image/*"></label></div></div><div class="image-slot"><span class="image-slot-label">موسيقى المقال (اختياري)</span><div class="image-preview">🎵</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الموسيقى<input type="file" accept="audio/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div></div><div class="article-edit-item"><div class="row-num">٦</div><div class="row-text-col"><label class="field"><span>العنوان</span><input type="text" maxlength="80" placeholder="عنوان المقال"></label></div><div class="image-slot"><span class="image-slot-label">صورة الغلاف (تظهر في الصفحة الرئيسية فقط)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير صورة الغلاف<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الأولى (تظهر عند فتح المقال)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الثانية (اختياري)</span><div class="image-preview empty">—</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">إضافة صورة<input type="file" accept="image/*"></label></div></div><div class="image-slot"><span class="image-slot-label">موسيقى المقال (اختياري)</span><div class="image-preview">🎵</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الموسيقى<input type="file" accept="audio/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div></div><div class="article-edit-item"><div class="row-num">٧</div><div class="row-text-col"><label class="field"><span>العنوان</span><input type="text" maxlength="80" placeholder="عنوان المقال"></label></div><div class="image-slot"><span class="image-slot-label">صورة الغلاف (تظهر في الصفحة الرئيسية فقط)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير صورة الغلاف<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الأولى (تظهر عند فتح المقال)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الثانية (اختياري)</span><div class="image-preview empty">—</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">إضافة صورة<input type="file" accept="image/*"></label></div></div><div class="image-slot"><span class="image-slot-label">موسيقى المقال (اختياري)</span><div class="image-preview empty">—</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">إضافة موسيقى<input type="file" accept="audio/*"></label></div></div></div><div class="article-edit-item"><div class="row-num">٨</div><div class="row-text-col"><label class="field"><span>العنوان</span><input type="text" maxlength="80" placeholder="عنوان المقال"></label></div><div class="image-slot"><span class="image-slot-label">صورة الغلاف (تظهر في الصفحة الرئيسية فقط)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير صورة الغلاف<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الأولى (تظهر عند فتح المقال)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الثانية (اختياري)</span><div class="image-preview empty">—</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">إضافة صورة<input type="file" accept="image/*"></label></div></div><div class="image-slot"><span class="image-slot-label">موسيقى المقال (اختياري)</span><div class="image-preview">🎵</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الموسيقى<input type="file" accept="audio/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div></div><div class="article-edit-item"><div class="row-num">٩</div><div class="row-text-col"><label class="field"><span>العنوان</span><input type="text" maxlength="80" placeholder="عنوان المقال"></label></div><div class="image-slot"><span class="image-slot-label">صورة الغلاف (تظهر في الصفحة الرئيسية فقط)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير صورة الغلاف<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الأولى (تظهر عند فتح المقال)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الثانية (اختياري)</span><div class="image-preview empty">—</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">إضافة صورة<input type="file" accept="image/*"></label></div></div><div class="image-slot"><span class="image-slot-label">موسيقى المقال (اختياري)</span><div class="image-preview">🎵</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الموسيقى<input type="file" accept="audio/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div></div><div class="article-edit-item"><div class="row-num">١٠</div><div class="row-text-col"><label class="field"><span>العنوان</span><input type="text" maxlength="80" placeholder="عنوان المقال"></label></div><div class="image-slot"><span class="image-slot-label">صورة الغلاف (تظهر في الصفحة الرئيسية فقط)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير صورة الغلاف<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الأولى (تظهر عند فتح المقال)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الثانية (اختياري)</span><div class="image-preview empty">—</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">إضافة صورة<input type="file" accept="image/*"></label></div></div><div class="image-slot"><span class="image-slot-label">موسيقى المقال (اختياري)</span><div class="image-preview empty">—</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">إضافة موسيقى<input type="file" accept="audio/*"></label></div></div></div><div class="article-edit-item"><div class="row-num">١١</div><div class="row-text-col"><label class="field"><span>العنوان</span><input type="text" maxlength="80" placeholder="عنوان المقال"></label></div><div class="image-slot"><span class="image-slot-label">صورة الغلاف (تظهر في الصفحة الرئيسية فقط)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير صورة الغلاف<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الأولى (تظهر عند فتح المقال)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الثانية (اختياري)</span><div class="image-preview empty">—</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">إضافة صورة<input type="file" accept="image/*"></label></div></div><div class="image-slot"><span class="image-slot-label">موسيقى المقال (اختياري)</span><div class="image-preview">🎵</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الموسيقى<input type="file" accept="audio/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div></div><div class="article-edit-item"><div class="row-num">١٢</div><div class="row-text-col"><label class="field"><span>العنوان</span><input type="text" maxlength="80" placeholder="عنوان المقال"></label></div><div class="image-slot"><span class="image-slot-label">صورة الغلاف (تظهر في الصفحة الرئيسية فقط)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير صورة الغلاف<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الأولى (تظهر عند فتح المقال)</span><div class="image-preview"><img></div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الصورة<input type="file" accept="image/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div><div class="image-slot"><span class="image-slot-label">الصورة الثانية (اختياري)</span><div class="image-preview empty">—</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">إضافة صورة<input type="file" accept="image/*"></label></div></div><div class="image-slot"><span class="image-slot-label">موسيقى المقال (اختياري)</span><div class="image-preview">🎵</div><div class="image-slot-btns"><label class="btn btn-small btn-upload">تغيير الموسيقى<input type="file" accept="audio/*"></label><button type="button" class="btn btn-small btn-danger">حذف</button></div></div></div></div>
+    </section>
+
+    <div class="edit-footer">
+      <button id="export-btn" class="btn btn-primary" type="button">💾 حفظ وتنزيل الملف</button>
+    </div>
+    <p class="export-note">لأن المجلة تعمل بالكامل دون إنترنت في ملف واحد، فإن الضغط على "حفظ وتنزيل الملف" ينشئ نسخة HTML جديدة تحتوي كل تعديلاتك. ارفع هذه النسخة إلى موقعك لتحل محل الملف القديم — بهذا يرى الزوّار العدد الجديد فوراً.</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+<div id="toast" class="">تمت إضافة الموسيقى</div><script src="js/script_001.js"></script>
+<script src="js/script_002.js"></script>
+<script>(function(){document.addEventListener("DOMContentLoaded",function(){var a=document.querySelectorAll("audio"),c=null;function f(b){var d=b.closest("article,section,div,.post,.entry,.card");if(d){var e=d.querySelector("audio");if(e)return e}var g=b.nextElementSibling;while(g){if(g.tagName==="AUDIO")return g;if(g.querySelector){var h=g.querySelector("audio");if(h)return h}g=g.nextElementSibling}var i=b.querySelector("audio");if(i)return i;var j=b.previousElementSibling;while(j){if(j.tagName==="AUDIO")return j;j=j.previousElementSibling}return null}var k=["button",".audio-btn",".music-btn",".play-btn","[class*=music]","[class*=audio]","[class*=play]","[id*=music]","[id*=audio]","[id*=play]"];document.querySelectorAll(k.join(", ")).forEach(function(b){b.addEventListener("click",function(m){m.preventDefault();m.stopPropagation();var n=f(b);if(!n){console.log("No audio");return}if(c&&c!==n){c.pause();c.currentTime=0}if(n.paused){if(n.readyState===0)n.load();n.play().then(function(){c=n}).catch(function(){n.load();n.play()})}else{n.pause();n.currentTime=0;c=null}})});a.forEach(function(b){b.addEventListener("play",function(){if(c&&c!==b){c.pause();c.currentTime=0}c=b});b.addEventListener("ended",function(){if(c===b)c=null})})})})();</script>
+</body></html>
