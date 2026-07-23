@@ -280,6 +280,21 @@ body{background-image:radial-gradient(circle at 20px 20px, rgba(201,160,78,.05) 
 @keyframes toastPop{0%{transform:translateX(-50%) scale(.85);opacity:0;}60%{transform:translateX(-50%) scale(1.03);opacity:1;}100%{transform:translateX(-50%) scale(1);opacity:1;}}
 #toast.show{animation:toastPop .35s cubic-bezier(.34,1.56,.64,1) both;}
 
+/* تموج سحري أخضر وأحمر حول مكاني الشعارين */
+.header-logo-slot{position:relative;}
+.header-logo-slot.has-logo::before{
+  content:'';
+  position:absolute;
+  inset:-8px;
+  border-radius:16px;
+  background:conic-gradient(from 0deg, #2ecc71, #e74c3c, #2ecc71, #e74c3c, #2ecc71);
+  z-index:-1;
+  filter:blur(9px);
+  opacity:.75;
+  animation:magicWaveSpin 4s linear infinite;
+}
+@keyframes magicWaveSpin{to{transform:rotate(360deg);}}
+
 </style>
 </head>
 <body class="">
