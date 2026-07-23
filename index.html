@@ -252,6 +252,33 @@ button:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;bor
 
 /* ٩. تظليل خفيف حول حواف الشاشة يمنح عمقاً */
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:5;box-shadow:inset 0 0 120px rgba(0,0,0,.45);}
+/* ١٠. شريط تمرير ذهبي رفيع بدل الرمادي الافتراضي */
+::-webkit-scrollbar{width:8px;height:8px;}
+::-webkit-scrollbar-track{background:var(--ink);}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:10px;}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-bright);}
+
+/* ١١. لون تظليل النص عند تحديده يطابق الهوية الذهبية */
+::selection{background:var(--gold);color:var(--ink);}
+
+/* ١٢. تمرير سلس بدل القفز المفاجئ */
+html{scroll-behavior:smooth;}
+
+/* ١٣. تكبير خفيف لصورة الغلاف عند لمس البطاقة (تأثير مجلة أنيق) */
+.home-card{overflow:hidden;}
+.home-card img{transition:transform .35s ease;}
+.home-card:hover img{transform:scale(1.08);}
+
+/* ١٤. دخول ناعم بتكبير خفيف لصورة المقال عند ظهورها أول مرة */
+@keyframes imageSettle{from{transform:scale(1.04);opacity:.7;}to{transform:scale(1);opacity:1;}}
+.article-image.show{animation:imageSettle .5s ease both;}
+
+/* ١٥. نمط زخرفي هندسي خفيف جداً في الخلفية (نقاط ذهبية شبه غير مرئية) */
+body{background-image:radial-gradient(circle at 20px 20px, rgba(201,160,78,.05) 2px, transparent 2px);background-size:40px 40px;}
+
+/* ١٦. ظهور رسائل التنبيه (Toast) بحيوية أكثر بدل الظهور الجامد */
+@keyframes toastPop{0%{transform:translateX(-50%) scale(.85);opacity:0;}60%{transform:translateX(-50%) scale(1.03);opacity:1;}100%{transform:translateX(-50%) scale(1);opacity:1;}}
+#toast.show{animation:toastPop .35s cubic-bezier(.34,1.56,.64,1) both;}
 
 </style>
 </head>
